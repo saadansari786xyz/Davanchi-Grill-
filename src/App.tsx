@@ -18,6 +18,7 @@ import { SocialSection } from './components/SocialSection';
 import { VisitUs } from './components/VisitUs';
 import { Footer } from './components/Footer';
 import { ReservationModal } from './components/ReservationModal';
+import { WhatsAppFloatingButton } from './components/WhatsAppFloatingButton';
 import { RESTAURANT_DATA } from './data/restaurantData';
 
 export default function App() {
@@ -121,6 +122,9 @@ export default function App() {
         onClose={handleCloseReservation}
         preSelectedDishes={selectedDishes}
       />
+
+      {/* Floating WhatsApp Quick Contact Button & Recurring Inquiry Notification */}
+      <WhatsAppFloatingButton />
 
       {/* Mobile Floating Sticky Action Bar */}
       <div

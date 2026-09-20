@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Flame, Compass, MapPin, HeartHandshake } from 'lucide-react';
-import { APP_IMAGES } from '../data/images';
 import { RESTAURANT_DATA } from '../data/restaurantData';
 
 export const OurStory: React.FC = () => {
+  const [storyImg, setStoryImg] = useState('https://i.ibb.co/hF99Qgrq/download.jpg');
   return (
     <section
       id="story"
@@ -35,10 +35,16 @@ export const OurStory: React.FC = () => {
           <div className="lg:col-span-6 relative">
             <div className="relative rounded-sm overflow-hidden border border-[#2a2924] shadow-2xl">
               <img
-                src={APP_IMAGES.diningAmbience}
-                alt="DaVinci Grill Dining Space"
+                src={storyImg}
+                alt="DaVinci Grill - The Art of the Flame & Culinary Passion"
                 className="w-full h-[420px] sm:h-[480px] object-cover"
                 loading="lazy"
+                referrerPolicy="no-referrer"
+                onError={() => {
+                  if (storyImg !== '/our-story.jpg') {
+                    setStoryImg('/our-story.jpg');
+                  }
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0b] via-transparent to-transparent opacity-80" />
             </div>

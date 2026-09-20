@@ -167,7 +167,7 @@ export const WhatsAppFloatingButton: React.FC = () => {
     <aside
       id="whatsapp-floating-contact"
       aria-label="Direct WhatsApp Contact & Inquiries"
-      className="fixed z-40 right-3 sm:right-7 bottom-[68px] sm:bottom-7 flex flex-col items-end pointer-events-none select-none"
+      className="fixed z-40 right-4 sm:right-7 bottom-5 sm:bottom-7 flex flex-col items-end pointer-events-none select-none"
     >
       {/* 
         Recurring Inquiry Tooltip / Popup Notification 

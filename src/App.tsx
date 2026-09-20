@@ -4,7 +4,6 @@
  */
 
 import React, { useState } from 'react';
-import { Phone, Calendar, MessageCircle, ChevronUp } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { BrandIntro } from './components/BrandIntro';
@@ -19,7 +18,6 @@ import { VisitUs } from './components/VisitUs';
 import { Footer } from './components/Footer';
 import { ReservationModal } from './components/ReservationModal';
 import { WhatsAppFloatingButton } from './components/WhatsAppFloatingButton';
-import { RESTAURANT_DATA } from './data/restaurantData';
 
 export default function App() {
   const [isReservationOpen, setIsReservationOpen] = useState(false);
@@ -125,42 +123,6 @@ export default function App() {
 
       {/* Floating WhatsApp Quick Contact Button & Recurring Inquiry Notification */}
       <WhatsAppFloatingButton />
-
-      {/* Mobile Floating Sticky Action Bar */}
-      <div
-        id="mobile-sticky-action-bar"
-        className="fixed bottom-0 left-0 right-0 z-30 sm:hidden bg-[#0c0c0b]/95 backdrop-blur-md border-t border-[#2a2924] px-4 py-2.5 flex items-center justify-between gap-2 shadow-2xl"
-      >
-        <a
-          href={RESTAURANT_DATA.callUrl}
-          id="mobile-sticky-call"
-          className="flex-1 py-2.5 bg-[#181815] border border-[#2a2924] rounded-sm text-center text-xs uppercase tracking-wider text-ivory flex items-center justify-center gap-1.5"
-        >
-          <Phone className="w-3.5 h-3.5 text-champagne" />
-          <span>Call</span>
-        </a>
-
-        <a
-          href={RESTAURANT_DATA.whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          id="mobile-sticky-whatsapp"
-          className="flex-1 py-2.5 bg-[#181815] border border-[#2a2924] rounded-sm text-center text-xs uppercase tracking-wider text-ivory flex items-center justify-center gap-1.5"
-        >
-          <MessageCircle className="w-3.5 h-3.5 text-champagne" />
-          <span>WhatsApp</span>
-        </a>
-
-        <button
-          onClick={handleOpenReservation}
-          id="mobile-sticky-reserve"
-          type="button"
-          className="flex-1 py-2.5 bg-champagne text-[#0c0c0b] font-semibold rounded-sm text-center text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md"
-        >
-          <Calendar className="w-3.5 h-3.5" />
-          <span>Reserve</span>
-        </button>
-      </div>
     </div>
   );
 }

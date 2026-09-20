@@ -15,7 +15,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenReservation, onNavigateToM
   return (
     <footer
       id="main-footer"
-      className="bg-[#080807] text-ivory border-t border-[#1f1f1d] pt-20 pb-28 sm:pb-12 relative overflow-hidden"
+      className="bg-[#080807] text-ivory border-t border-[#1f1f1d] pt-20 pb-12 relative overflow-hidden"
       aria-label="Footer"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

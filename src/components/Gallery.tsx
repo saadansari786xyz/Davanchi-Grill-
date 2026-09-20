@@ -6,6 +6,7 @@ interface GalleryItem {
   title: string;
   category: 'FOOD' | 'THE GRILL' | 'THE AMBIENCE' | 'BEVERAGES';
   image: string;
+  fallbackImage?: string;
   description: string;
 }
 
@@ -13,6 +14,7 @@ export const Gallery: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('ALL');
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+  const [activeImageSrcs, setActiveImageSrcs] = useState<Record<string, string>>({});
 
   // The 8 original DaVinci Grill images categorized according to content
   const galleryItems: GalleryItem[] = [
@@ -55,7 +57,8 @@ export const Gallery: React.FC = () => {
       id: 'gal-entree-platter',
       title: 'Signature Entrée Presentation',
       category: 'FOOD',
-      image: 'https://i.ibb.co/PG8Ytgfr/enterree.webp',
+      image: 'https://i.ibb.co/hF99Qgrq/download.jpg',
+      fallbackImage: '/signature-entree.jpg',
       description: 'An artfully presented gourmet entrée highlighting tender cuts, vibrant garnishes, and chef sauces.',
     },
     {
@@ -102,9 +105,15 @@ export const Gallery: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedPhotoIndex, filteredItems.length]);
 
-  const handleImageError = (url: string) => {
-    console.warn(`[Gallery] Failed to load image: ${url}`);
-    setFailedImages((prev) => ({ ...prev, [url]: true }));
+  const handleImageError = (item: GalleryItem) => {
+    const currentSrc = activeImageSrcs[item.id] || item.image;
+    if (item.fallbackImage && currentSrc !== item.fallbackImage) {
+      console.info(`[Gallery] Falling back to local asset for ${item.title}`);
+      setActiveImageSrcs((prev) => ({ ...prev, [item.id]: item.fallbackImage! }));
+      return;
+    }
+    console.warn(`[Gallery] Failed to load image: ${currentSrc}`);
+    setFailedImages((prev) => ({ ...prev, [item.id]: true }));
   };
 
   const handlePrev = (e: React.MouseEvent) => {
@@ -172,7 +181,8 @@ export const Gallery: React.FC = () => {
         {/* Editorial Photo Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredItems.map((item, index) => {
-            const hasError = failedImages[item.image];
+            const currentSrc = activeImageSrcs[item.id] || item.image;
+            const hasError = failedImages[item.id];
             return (
               <div
                 key={item.id}
@@ -184,15 +194,15 @@ export const Gallery: React.FC = () => {
                   <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-[#181815] text-center border border-red-500/30">
                     <AlertCircle className="w-6 h-6 text-red-400 mb-2" />
                     <span className="text-xs text-red-200 font-sans">Unable to load image</span>
-                    <span className="text-[10px] text-ivory-muted font-mono mt-1 break-all line-clamp-1">{item.image}</span>
+                    <span className="text-[10px] text-ivory-muted font-mono mt-1 break-all line-clamp-1">{currentSrc}</span>
                   </div>
                 ) : (
                   <img
-                    src={item.image}
-                    alt={item.title}
+                    src={currentSrc}
+                    alt={`${item.title} - DaVinci Grill`}
                     referrerPolicy="no-referrer"
                     loading="lazy"
-                    onError={() => handleImageError(item.image)}
+                    onError={() => handleImageError(item)}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 )}
@@ -268,44 +278,53 @@ export const Gallery: React.FC = () => {
             )}
 
             {/* Modal Image Display */}
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl w-full flex flex-col items-center"
-            >
-              <div className="relative max-h-[75vh] overflow-hidden rounded-sm border border-[#2a2924] bg-[#181815]">
-                {failedImages[filteredItems[selectedPhotoIndex].image] ? (
-                  <div className="p-12 text-center text-red-200">
-                    <AlertCircle className="w-10 h-10 text-red-400 mx-auto mb-3" />
-                    <p>Unable to load original image</p>
-                    <p className="text-xs font-mono text-ivory-muted mt-2">
-                      {filteredItems[selectedPhotoIndex].image}
+            {(() => {
+              const selectedItem = filteredItems[selectedPhotoIndex];
+              const currentSrc = activeImageSrcs[selectedItem.id] || selectedItem.image;
+              const hasError = failedImages[selectedItem.id];
+
+              return (
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative max-w-4xl w-full flex flex-col items-center"
+                >
+                  <div className="relative max-h-[75vh] overflow-hidden rounded-sm border border-[#2a2924] bg-[#181815]">
+                    {hasError ? (
+                      <div className="p-12 text-center text-red-200">
+                        <AlertCircle className="w-10 h-10 text-red-400 mx-auto mb-3" />
+                        <p>Unable to load original image</p>
+                        <p className="text-xs font-mono text-ivory-muted mt-2">
+                          {currentSrc}
+                        </p>
+                      </div>
+                    ) : (
+                      <img
+                        src={currentSrc}
+                        alt={`${selectedItem.title} - DaVinci Grill`}
+                        referrerPolicy="no-referrer"
+                        onError={() => handleImageError(selectedItem)}
+                        className="max-h-[75vh] w-auto object-contain"
+                      />
+                    )}
+                  </div>
+
+                  <div className="mt-4 text-center max-w-xl">
+                    <span className="text-xs uppercase tracking-widest text-champagne font-sans font-medium">
+                      {selectedItem.category}
+                    </span>
+                    <h3 className="font-serif text-2xl text-ivory mt-1">
+                      {selectedItem.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-ivory-muted mt-1 font-light">
+                      {selectedItem.description}
+                    </p>
+                    <p className="text-[11px] text-champagne/70 mt-2 font-mono">
+                      {selectedPhotoIndex + 1} / {filteredItems.length}
                     </p>
                   </div>
-                ) : (
-                  <img
-                    src={filteredItems[selectedPhotoIndex].image}
-                    alt={filteredItems[selectedPhotoIndex].title}
-                    referrerPolicy="no-referrer"
-                    className="max-h-[75vh] w-auto object-contain"
-                  />
-                )}
-              </div>
-
-              <div className="mt-4 text-center max-w-xl">
-                <span className="text-xs uppercase tracking-widest text-champagne font-sans font-medium">
-                  {filteredItems[selectedPhotoIndex].category}
-                </span>
-                <h3 className="font-serif text-2xl text-ivory mt-1">
-                  {filteredItems[selectedPhotoIndex].title}
-                </h3>
-                <p className="text-xs sm:text-sm text-ivory-muted mt-1 font-light">
-                  {filteredItems[selectedPhotoIndex].description}
-                </p>
-                <p className="text-[11px] text-champagne/70 mt-2 font-mono">
-                  {selectedPhotoIndex + 1} / {filteredItems.length}
-                </p>
-              </div>
-            </div>
+                </div>
+              );
+            })()}
           </div>
         )}
 

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      /* Fix environment where window.fetch has only a getter */
+      (function() {
+        try {
+          var originalFetch = typeof window !== 'undefined' ? window.fetch : undefined;
+          var fetchHolder = originalFetch;
+          var patchTarget = function(target) {
+            if (!target) return;
+            try {
+              var desc = Object.getOwnPropertyDescriptor(target, 'fetch');
+              if (!desc || !desc.set) {
+                Object.defineProperty(target, 'fetch', {
+                  get: function() {
+                    return fetchHolder;
+                  },
+                  set: function(val) {
+                    fetchHolder = val;
+                  },
+                  configurable: true,
+                  enumerable: true
+                });
+              }
+            } catch (e) {}
+          };
+          patchTarget(window);
+          if (typeof Window !== 'undefined' && Window.prototype) {
+            patchTarget(Window.prototype);
+          }
+          if (typeof globalThis !== 'undefined' && globalThis !== window) {
+            patchTarget(globalThis);
+          }
+        } catch (_) {}
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DaVinci Grill | The Art of the Flame – Hyderabad</title>
+    <meta name="description" content="DaVinci Grill – The Art of the Flame. An elevated dining experience featuring flame-crafted steaks, artisanal grills, Italian specialties, and handcrafted beverages in Hyderabad, Sindh." />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:title" content="DaVinci Grill | The Art of the Flame – Hyderabad" />
+    <meta property="og:description" content="Explore flame-crafted steaks, gourmet grills, seafood, pastas, and artisanal drinks at DaVinci Grill in Latifabad, Hyderabad." />
+    <meta property="og:image" content="/logo.svg" />
+    <meta property="og:site_name" content="DaVinci Grill & Restaurant" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DaVinci Grill | The Art of the Flame – Hyderabad" />
+    <meta name="twitter:description" content="Explore flame-crafted steaks, gourmet grills, seafood, pastas, and artisanal drinks at DaVinci Grill in Latifabad, Hyderabad." />
+    <meta name="twitter:image" content="/logo.svg" />
+
+    <!-- Google Fonts: Cormorant Garamond, Cinzel, Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Schema.org Restaurant Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "DaVinci Grill",
+      "alternateName": "DaVinci Grill & Restaurant",
+      "slogan": "The Art of the Flame",
+      "image": "https://maps.app.goo.gl/GwLtMZtsNkSBZ7zq6",
+      "telephone": "+92-302-3009-005",
+      "servesCuisine": ["Steakhouse", "Continental", "Italian", "Barbecue", "Beverages"],
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Plot No 7-a, Main Autobhan Unit No: 3, Latifabad",
+        "addressLocality": "Hyderabad",
+        "addressRegion": "Sindh",
+        "addressCountry": "PK"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 25.376882,
+        "longitude": 68.274389
+      },
+      "hasMap": "https://maps.app.goo.gl/GwLtMZtsNkSBZ7zq6",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+          "opens": "12:30",
+          "closes": "00:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Friday", "Saturday", "Sunday"],
+          "opens": "12:30",
+          "closes": "01:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/davincigrill.pk/",
+        "https://www.facebook.com/davincigrill.pk/",
+        "https://www.tiktok.com/@davincigrill.pk"
+      ]
+    }
+    </script>
+  </head>
+  <body class="bg-[#0c0c0b] text-[#f7f5f0] antialiased selection:bg-[#c89d66] selection:text-[#0c0c0b]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

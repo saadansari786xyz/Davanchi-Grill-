@@ -1,0 +1,8 @@
+{
+  "name": "Remix DaVinci Grill",
+  "description": "DaVinci Grill – The Art of the Flame. An elevated dining experience featuring flame-crafted steaks, artisanal grills, Italian specialties, and handcrafted beverages in Hyderabad, Sindh.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

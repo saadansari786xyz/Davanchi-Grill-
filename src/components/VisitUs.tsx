@@ -125,7 +125,7 @@ export const VisitUs: React.FC<VisitUsProps> = ({ onOpenReservation }) => {
 
           {/* Google Maps Embed Column */}
           <div className="lg:col-span-7 flex flex-col">
-            <div className="w-full h-full min-h-[380px] sm:min-h-[460px] bg-[#121210] border border-[#2a2924] rounded-sm overflow-hidden shadow-2xl relative">
+            <div className="w-full h-full min-h-[300px] sm:min-h-[440px] bg-[#121210] border border-[#2a2924] rounded-sm overflow-hidden shadow-2xl relative">
               <iframe
                 title="DaVinci Grill location map"
                 src={RESTAURANT_DATA.googleMapsEmbedSrc}
@@ -135,17 +135,17 @@ export const VisitUs: React.FC<VisitUsProps> = ({ onOpenReservation }) => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full min-h-[380px] sm:min-h-[460px]"
+                className="w-full h-full min-h-[300px] sm:min-h-[440px]"
               />
               
               {/* Map Footer Overlay Bar */}
-              <div className="absolute bottom-3 left-3 right-3 bg-[#0c0c0b]/90 backdrop-blur-md border border-[#2a2924] px-4 py-2.5 rounded-sm flex items-center justify-between text-xs text-ivory font-sans">
-                <span className="truncate">DaVinci Grill • Main Autobhan Unit 3</span>
+              <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3 sm:left-3 sm:right-3 bg-[#0c0c0b]/90 backdrop-blur-md border border-[#2a2924] px-3 sm:px-4 py-2 sm:py-2.5 rounded-sm flex items-center justify-between text-xs text-ivory font-sans">
+                <span className="truncate text-[11px] sm:text-xs">DaVinci Grill • Autobhan Unit 3</span>
                 <a
                   href={RESTAURANT_DATA.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-champagne hover:underline shrink-0 ml-2"
+                  className="text-champagne hover:underline shrink-0 ml-2 text-[11px] sm:text-xs font-medium"
                 >
                   Open in Maps ↗
                 </a>

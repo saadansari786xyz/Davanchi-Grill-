@@ -32,21 +32,21 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenReservation }) 
         {/* Subtle Brand Tag Header */}
         <div
           id="hero-badge"
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-champagne/30 bg-[#121210]/80 backdrop-blur-md mb-6"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-champagne/30 bg-[#121210]/80 backdrop-blur-md mb-5 sm:mb-6 max-w-full"
         >
-          <Flame className="w-3.5 h-3.5 text-champagne" />
-          <span className="font-sans text-[11px] sm:text-xs tracking-[0.25em] uppercase text-champagne-light font-medium">
+          <Flame className="w-3.5 h-3.5 text-champagne shrink-0" />
+          <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.25em] uppercase text-champagne-light font-medium truncate">
             HYDERABAD, SINDH • EST. 2025
           </span>
         </div>
 
         {/* Primary Tagline */}
-        <p className="font-serif italic text-xl sm:text-2xl md:text-3xl text-champagne tracking-[0.15em] mb-2 font-normal">
+        <p className="font-serif italic text-lg sm:text-2xl md:text-3xl text-champagne tracking-[0.12em] sm:tracking-[0.15em] mb-2 font-normal">
           The Art of the Flame
         </p>
 
         {/* Main Title */}
-        <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.18em] font-medium text-ivory text-balance leading-tight drop-shadow-lg">
+        <h1 className="font-display text-3xl min-[380px]:text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.12em] sm:tracking-[0.18em] font-medium text-ivory text-balance leading-tight drop-shadow-lg">
           DAVINCI GRILL
         </h1>
 

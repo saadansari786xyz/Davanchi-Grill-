@@ -167,7 +167,7 @@ export const WhatsAppFloatingButton: React.FC = () => {
     <aside
       id="whatsapp-floating-contact"
       aria-label="Direct WhatsApp Contact & Inquiries"
-      className="fixed z-40 right-4 sm:right-7 bottom-[72px] sm:bottom-7 flex flex-col items-end pointer-events-none select-none"
+      className="fixed z-40 right-3 sm:right-7 bottom-[68px] sm:bottom-7 flex flex-col items-end pointer-events-none select-none"
     >
       {/* 
         Recurring Inquiry Tooltip / Popup Notification 
@@ -180,7 +180,7 @@ export const WhatsAppFloatingButton: React.FC = () => {
           aria-live="polite"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="pointer-events-auto mb-3 max-w-[270px] sm:max-w-[300px] w-auto animate-in fade-in slide-in-from-bottom-2 duration-300 motion-reduce:animate-none"
+          className="pointer-events-auto mb-3 max-w-[245px] min-[360px]:max-w-[275px] sm:max-w-[300px] w-auto animate-in fade-in slide-in-from-bottom-2 duration-300 motion-reduce:animate-none"
         >
           <div className="relative bg-[#141412] text-[#f7f5f0] border border-[#c89d66]/50 rounded-lg p-3.5 sm:p-4 shadow-[0_12px_32px_rgba(0,0,0,0.85)] flex items-start gap-3 backdrop-blur-md">
             {/* WhatsApp Green Icon Indicator */}

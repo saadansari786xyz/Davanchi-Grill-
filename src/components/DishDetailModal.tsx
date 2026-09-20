@@ -37,14 +37,14 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#000000]/85 backdrop-blur-md transition-opacity duration-300 animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-[#000000]/85 backdrop-blur-md transition-opacity duration-300 animate-fadeIn overflow-y-auto"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="dish-modal-title"
     >
       <div
-        className="relative w-full max-w-2xl bg-[#141412] border border-champagne/40 rounded-sm shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-2xl bg-[#141412] border border-champagne/40 rounded-sm shadow-2xl overflow-hidden flex flex-col max-h-[92dvh] sm:max-h-[90vh] my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -135,7 +135,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({
                 <span className="text-[11px] uppercase tracking-wider text-ivory-muted font-sans block mb-2">
                   Select Cut / Size Option:
                 </span>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                   {item.variations.map((v) => (
                     <div
                       key={v.label}

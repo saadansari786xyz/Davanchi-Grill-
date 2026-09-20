@@ -28,6 +28,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenReservation, onNavigateToM
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll and handle Escape key when mobile drawer is open
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { label: 'HOME', href: '#hero' },
     { label: 'MENU', href: '#menu', isMenu: true },
@@ -70,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenReservation, onNavigateToM
             className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
             aria-label="DaVinci Grill Homepage"
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-sm border border-champagne/40 overflow-hidden flex items-center justify-center bg-[#121210] group-hover:border-champagne transition-colors shrink-0">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-sm border border-champagne/40 overflow-hidden flex items-center justify-center bg-[#121210] group-hover:border-champagne transition-colors shrink-0">
               <img
                 src={logoSrc}
                 alt="DaVinci Grill"
@@ -81,11 +101,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenReservation, onNavigateToM
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-display text-base sm:text-lg font-semibold tracking-[0.2em] text-ivory group-hover:text-champagne-light transition-colors">
+            <div className="flex flex-col min-w-0">
+              <span className="font-display text-sm sm:text-base lg:text-lg font-semibold tracking-[0.15em] sm:tracking-[0.2em] text-ivory group-hover:text-champagne-light transition-colors truncate">
                 DAVINCI GRILL
               </span>
-              <span className="font-serif italic text-[11px] tracking-[0.22em] text-champagne">
+              <span className="font-serif italic text-[10px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.22em] text-champagne whitespace-nowrap">
                 The Art of the Flame
               </span>
             </div>
@@ -123,12 +143,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenReservation, onNavigateToM
           </div>
 
           {/* MOBILE: Clean controls */}
-          <div className="flex md:hidden items-center gap-2">
+          <div className="flex md:hidden items-center gap-1.5 sm:gap-2">
             <button
               onClick={onOpenReservation}
               id="nav-mobile-quick-reserve"
               type="button"
-              className="px-3 py-1.5 text-[11px] font-sans uppercase tracking-wider font-semibold text-[#0c0c0b] bg-champagne rounded-sm cursor-pointer"
+              className="hidden min-[360px]:inline-flex px-2.5 sm:px-3 py-1.5 text-[11px] font-sans uppercase tracking-wider font-semibold text-[#0c0c0b] bg-champagne rounded-sm cursor-pointer"
               aria-label="Reserve a table"
             >
               Reserve
@@ -147,11 +167,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenReservation, onNavigateToM
         </div>
       </header>
 
-      {/* Clean Mobile Drawer Navigation */}
+      {/* Clean Mobile Drawer Navigation - Scrollable & Safe on Small Devices */}
       {mobileMenuOpen && (
         <div
           id="mobile-nav-drawer"
-          className="fixed inset-0 z-50 bg-[#0c0c0b]/98 flex flex-col justify-between p-6 sm:p-8 animate-fadeIn"
+          className="fixed inset-0 z-50 bg-[#0c0c0b]/98 flex flex-col justify-between p-5 sm:p-8 overflow-y-auto overscroll-contain animate-fadeIn"
           role="dialog"
           aria-modal="true"
         >
